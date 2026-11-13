@@ -6,6 +6,7 @@ import Mark from "./Mark";
 import { site } from "@/lib/site";
 
 const links = [
+  { href: "#work", label: "Work" },
   { href: "#services", label: "Services" },
   { href: "#process", label: "Process" },
   { href: "#packages", label: "Packages" },

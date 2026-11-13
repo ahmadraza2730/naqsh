@@ -54,7 +54,7 @@ export const serviceGroups: ServiceGroup[] = [
         summary: "A distinctive mark and wordmark, drawn from a short brief about your business.",
         deliverables: ["3 initial concepts", "3 rounds of revisions", "Primary, secondary and icon versions", "SVG, PNG, PDF and AI files"],
         days: "4–6 days",
-        fromPkr: 8000,
+        fromPkr: 6500,
       },
       {
         id: "identity",
@@ -62,7 +62,7 @@ export const serviceGroups: ServiceGroup[] = [
         summary: "Logo, colour, type and the rules that hold them together, ready for print and screen.",
         deliverables: ["Logo suite", "Colour palette and typography", "Brand guidelines PDF", "Business card and letterhead", "Social media kit"],
         days: "10–14 days",
-        fromPkr: 30000,
+        fromPkr: 24000,
       },
       {
         id: "rebrand",
@@ -70,7 +70,7 @@ export const serviceGroups: ServiceGroup[] = [
         summary: "Modernise an existing logo without losing the recognition you have built.",
         deliverables: ["Audit of the current brand", "2 refresh directions", "Updated logo suite", "Before and after rollout sheet"],
         days: "7–10 days",
-        fromPkr: 18000,
+        fromPkr: 14500,
       },
       {
         id: "stationery",
@@ -78,7 +78,7 @@ export const serviceGroups: ServiceGroup[] = [
         summary: "Cards, letterheads, envelopes and email signatures that match your brand.",
         deliverables: ["Business card (both sides)", "Letterhead and envelope", "Email signature", "Print-ready files with bleed"],
         days: "2–3 days",
-        fromPkr: 4000,
+        fromPkr: 3000,
       },
     ],
   },
@@ -93,7 +93,7 @@ export const serviceGroups: ServiceGroup[] = [
         summary: "Feed posts, carousels and stories for Instagram, Facebook and LinkedIn.",
         deliverables: ["Branded post templates", "Carousels and stories", "Captions-ready layouts", "Editable source files"],
         days: "2–4 days",
-        fromPkr: 1500,
+        fromPkr: 1000,
       },
       {
         id: "thumbnails",
@@ -101,7 +101,7 @@ export const serviceGroups: ServiceGroup[] = [
         summary: "High-contrast thumbnails built to be read at a glance on a phone.",
         deliverables: ["1280×720 thumbnail", "2 variations for testing", "Retouched cut-outs", "PSD source"],
         days: "1–2 days",
-        fromPkr: 1500,
+        fromPkr: 1000,
       },
       {
         id: "ads",
@@ -109,7 +109,7 @@ export const serviceGroups: ServiceGroup[] = [
         summary: "Meta, Google and web banners in every size your campaign needs.",
         deliverables: ["Master design", "Resized set for each platform", "Static and simple animated versions"],
         days: "2–3 days",
-        fromPkr: 3000,
+        fromPkr: 2500,
       },
       {
         id: "ui",
@@ -117,7 +117,7 @@ export const serviceGroups: ServiceGroup[] = [
         summary: "Landing pages and app screens designed in Figma, ready for a developer.",
         deliverables: ["Desktop and mobile layouts", "Clickable Figma prototype", "Component styles", "Developer handoff"],
         days: "7–12 days",
-        fromPkr: 25000,
+        fromPkr: 20000,
       },
       {
         id: "decks",
@@ -125,7 +125,7 @@ export const serviceGroups: ServiceGroup[] = [
         summary: "Investor, sales and company decks that read clearly and look considered.",
         deliverables: ["Up to 15 designed slides", "Charts and diagrams", "PowerPoint, Google Slides or Keynote file"],
         days: "4–6 days",
-        fromPkr: 12000,
+        fromPkr: 9500,
       },
     ],
   },
@@ -140,7 +140,7 @@ export const serviceGroups: ServiceGroup[] = [
         summary: "Boxes, pouches, jars and labels designed to the printer's dieline.",
         deliverables: ["Design on your dieline", "3D mockup", "Print-ready files", "Printer coordination notes"],
         days: "6–10 days",
-        fromPkr: 15000,
+        fromPkr: 12000,
       },
       {
         id: "posters",
@@ -148,7 +148,7 @@ export const serviceGroups: ServiceGroup[] = [
         summary: "Event posters, flyers and leaflets for print or social.",
         deliverables: ["A4/A3 or custom size", "Social-friendly version", "Print-ready PDF"],
         days: "2–3 days",
-        fromPkr: 3000,
+        fromPkr: 2500,
       },
       {
         id: "menus",
@@ -156,7 +156,7 @@ export const serviceGroups: ServiceGroup[] = [
         summary: "Menus for tables, walls, takeaway and delivery apps.",
         deliverables: ["Menu layout", "Food photo retouching", "Print and digital versions"],
         days: "3–5 days",
-        fromPkr: 6000,
+        fromPkr: 5000,
       },
       {
         id: "invites",
@@ -164,7 +164,7 @@ export const serviceGroups: ServiceGroup[] = [
         summary: "Invitations, mehndi and nikkah cards, from classic calligraphy to modern minimal.",
         deliverables: ["Card design (all events)", "Digital invite for WhatsApp", "Print-ready files"],
         days: "3–5 days",
-        fromPkr: 5000,
+        fromPkr: 4000,
       },
       {
         id: "editorial",
@@ -172,7 +172,7 @@ export const serviceGroups: ServiceGroup[] = [
         summary: "Covers, brochures, catalogues and multi-page layouts.",
         deliverables: ["Front, spine and back cover", "Interior page templates", "Print-ready PDF"],
         days: "5–8 days",
-        fromPkr: 8000,
+        fromPkr: 6500,
       },
       {
         id: "merch",
@@ -180,7 +180,7 @@ export const serviceGroups: ServiceGroup[] = [
         summary: "Apparel graphics, mugs, tote bags and giveaways.",
         deliverables: ["Print-ready artwork", "Colour separations", "Product mockups"],
         days: "2–4 days",
-        fromPkr: 3000,
+        fromPkr: 2500,
       },
     ],
   },
@@ -195,7 +195,7 @@ export const serviceGroups: ServiceGroup[] = [
         summary: "Characters, icons, mascots and editorial illustrations in a style made for you.",
         deliverables: ["Sketch stage", "Final vector or raster artwork", "Commercial-use licence"],
         days: "4–8 days",
-        fromPkr: 7000,
+        fromPkr: 5500,
       },
       {
         id: "infographics",
@@ -203,7 +203,7 @@ export const serviceGroups: ServiceGroup[] = [
         summary: "Turn reports, processes and numbers into one clear visual.",
         deliverables: ["Information layout", "Custom icons", "Print and web versions"],
         days: "3–5 days",
-        fromPkr: 5000,
+        fromPkr: 4000,
       },
       {
         id: "motion",
@@ -211,7 +211,7 @@ export const serviceGroups: ServiceGroup[] = [
         summary: "Animated logos, intros and short social videos.",
         deliverables: ["5–10s logo sting", "MP4 and transparent MOV", "Sound-on and silent versions"],
         days: "4–7 days",
-        fromPkr: 10000,
+        fromPkr: 8000,
       },
       {
         id: "retouch",
@@ -219,7 +219,7 @@ export const serviceGroups: ServiceGroup[] = [
         summary: "Product cut-outs, colour correction and clean-up for e-commerce and ads.",
         deliverables: ["Background removal", "Colour and skin retouching", "Web-optimised exports"],
         days: "1–2 days",
-        fromPkr: 500,
+        fromPkr: 400,
       },
     ],
   },
@@ -232,7 +232,7 @@ export const packages = [
     id: "mark",
     name: "The Mark",
     fit: "For new businesses that need to look established from day one.",
-    pricePkr: 15000,
+    pricePkr: 12000,
     items: ["Logo design with 3 concepts", "Business card", "Social media profile kit", "All source files"],
     featured: false,
   },
@@ -240,7 +240,7 @@ export const packages = [
     id: "identity",
     name: "The Identity",
     fit: "For brands launching properly, online and in print.",
-    pricePkr: 45000,
+    pricePkr: 36000,
     items: [
       "Everything in The Mark",
       "Brand guidelines",
@@ -254,7 +254,7 @@ export const packages = [
     id: "retainer",
     name: "Monthly studio",
     fit: "For teams that need design every week without hiring.",
-    pricePkr: 35000,
+    pricePkr: 28000,
     per: "/ month",
     items: ["20 social posts or ad creatives", "2 print pieces", "Priority 48-hour turnaround", "Pause or cancel any month"],
     featured: false,
@@ -301,3 +301,68 @@ export const faqs = [
 
 export const pkr = (n: number) => "Rs " + n.toLocaleString("en-PK");
 export const usd = (n: number) => "$" + Math.max(5, Math.round(n / site.usdRate / 5) * 5);
+
+// ───────── Delivered work ─────────
+// Add a project: drop images into public/work/ and add an entry here.
+// The first image is the cover; the rest open in the viewer.
+export type Project = {
+  id: string;
+  title: string;
+  kind: string;
+  summary: string;
+  images: { src: string; alt: string; w: number; h: number }[];
+  featured?: boolean;
+};
+
+export const projects: Project[] = [
+  {
+    id: "carbar",
+    title: "Carbar",
+    kind: "Brand identity",
+    summary:
+      "A full identity for an automotive brand: a mark built from linked wheels, a rounded wordmark, and rollout across signage, merchandise and the app.",
+    featured: true,
+    images: [
+      { src: "/work/carbar-logo.webp", alt: "Carbar logo in red and white on a dark background with a car behind it", w: 828, h: 835 },
+      { src: "/work/carbar-storefront.webp", alt: "Carbar logo as illuminated signage above a storefront", w: 819, h: 796 },
+      { src: "/work/carbar-tote.webp", alt: "Black Carbar tote bag hanging on a metal fence", w: 741, h: 808 },
+      { src: "/work/carbar-app.webp", alt: "Carbar app icon on a phone screen", w: 679, h: 814 },
+      { src: "/work/carbar-cap.webp", alt: "Black cap embroidered with the red Carbar mark", w: 757, h: 760 },
+    ],
+  },
+  {
+    id: "age-logistics",
+    title: "AGE Logistics",
+    kind: "Logo design",
+    summary: "A logistics logo: a speeding red truck over a heavy italic wordmark that holds up on vehicles and paperwork.",
+    images: [{ src: "/work/age-logistics.webp", alt: "AGE Logistics logo with a red truck above the name", w: 800, h: 640 }],
+  },
+  {
+    id: "corolla",
+    title: "Corolla Altis",
+    kind: "Poster design",
+    summary: "A spec-sheet poster for the Toyota Corolla Altis with condensed display type behind the car.",
+    images: [{ src: "/work/corolla-poster.webp", alt: "Poster of a white Toyota Corolla Altis in front of large grey COROLLA lettering", w: 716, h: 851 }],
+  },
+  {
+    id: "elsa",
+    title: "Elsa 3.0",
+    kind: "Poster design",
+    summary: "A poster for a modified Corolla, with a glitter-wrap texture and gradient type.",
+    images: [{ src: "/work/elsa-poster.webp", alt: "Poster of a modified Corolla named Elsa 3.0 with gradient COROLLA lettering", w: 706, h: 820 }],
+  },
+  {
+    id: "slowest",
+    title: "Slowest",
+    kind: "Social media artwork",
+    summary: "Photo manipulation with distressed lettering woven behind the car, made for social media.",
+    images: [{ src: "/work/slowest-poster.webp", alt: "White Suzuki car under a gateway with red SLOWEST lettering behind it", w: 720, h: 847 }],
+  },
+  {
+    id: "suzuki",
+    title: "Suzuki Cultus",
+    kind: "Banner design",
+    summary: "A colour-blocked collage banner combining photos of one car into a single wide composition.",
+    images: [{ src: "/work/suzuki-banner.webp", alt: "Collage banner of a white Suzuki on colour blocks with the word SUZUKI", w: 1600, h: 1131 }],
+  },
+];

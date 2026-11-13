@@ -19,6 +19,7 @@ Everything clients read lives in **`lib/site.ts`**:
 - `site.contact` — email, WhatsApp, Instagram, Behance, Fiverr, Contra links (empty values are hidden)
 - `serviceGroups` — every service, its deliverables, turnaround and starting price in PKR
 - `packages` — the three bundles
+- `projects` — the Delivered work section. Put images in `public/work/` (WebP, ~1600px max) and add an entry; mark one `featured: true` for the large case study
 - `payments`, `process`, `faqs`
 - `usdRate` — PKR→USD rate used for the approximate dollar prices
 
@@ -52,12 +53,13 @@ app/
   globals.css          the whole design system (lapis + gold)
   api/brief/route.ts   validates and stores briefs
   icon.svg, opengraph-image.tsx
-components/            Nav, Hero, Services, Packages, Sections, BriefForm, Mark
+components/            Nav, Hero, Work, Services, Packages, Sections, BriefForm, Mark
 lib/
   site.ts              all content
   brief.ts             form schema
   mark.ts              geometry of the Naqsh logo
 public/naqsh-mark.svg  logo file for print / social
+public/work/           portfolio images
 supabase/schema.sql
 ```
 
