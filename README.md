@@ -65,4 +65,4 @@ supabase/schema.sql
 
 ## The logo
 
-An eight-point khatam star from Islamic geometry, drawn as nested contour lines like a topographic map, each ring turned a few degrees so it spirals inward to a gold point — the place a mark is made. The geometry is generated in `lib/mark.ts`; `public/naqsh-mark.svg` is the standalone file.
+A map inside an eight-point star. The khatam star from Islamic geometry is the frame, like the border of an old map, with north marked on its top point. Inside it, topographic contour lines rise to a summit where a gold pin marks the spot, and a dashed route climbs up to it. A simpler version with two contours and a larger pin is used at small sizes (nav, favicon). The geometry lives in `lib/mark.ts`; `public/naqsh-mark.svg` is the standalone file.

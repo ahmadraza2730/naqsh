@@ -1,5 +1,5 @@
 import { ImageResponse } from "next/og";
-import { RINGS } from "@/lib/mark";
+import { CONTOURS, PIN, ROUTE, STAR } from "@/lib/mark";
 import { site } from "@/lib/site";
 
 export const alt = `${site.name} — ${site.tagline}`;
@@ -11,10 +11,12 @@ export default function OG() {
     (
       <div style={{ width: "100%", height: "100%", display: "flex", alignItems: "center", background: "#081626", padding: 80, gap: 72 }}>
         <svg width="400" height="400" viewBox="-110 -110 220 220">
-          {RINGS.map((r, i) => (
-            <path key={r.R} d={r.d} fill="none" stroke={i === RINGS.length - 1 ? "#c9a45c" : "#ede6d6"} strokeOpacity={i === RINGS.length - 1 ? 1 : 0.35 + i * 0.12} strokeWidth={i === 0 ? 2.4 : 2} />
+          <path d={STAR} fill="none" stroke="#ede6d6" strokeWidth={2} />
+          {CONTOURS.slice(1).map((c, i) => (
+            <path key={c.t} d={c.d} fill="none" stroke="#ede6d6" strokeOpacity={0.35 + i * 0.15} strokeWidth={1.6} />
           ))}
-          <circle r="5" fill="#c9a45c" />
+          <path d={ROUTE} fill="none" stroke="#c9a45c" strokeWidth={1.8} strokeDasharray="4 5" />
+          <path d={PIN.d} transform={`translate(${PIN.x} ${PIN.y})`} fill="#c9a45c" />
         </svg>
         <div style={{ display: "flex", flexDirection: "column", color: "#ede6d6" }}>
           <div style={{ fontSize: 110, letterSpacing: -2 }}>{site.name}</div>

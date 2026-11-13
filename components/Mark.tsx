@@ -1,7 +1,8 @@
 "use client";
 
+import { useId } from "react";
 import { motion, useReducedMotion } from "motion/react";
-import { RINGS } from "@/lib/mark";
+import { CONTOURS_SMALL, PIN, STAR, starPath } from "@/lib/mark";
 
 type Props = {
   size?: number;
@@ -11,39 +12,55 @@ type Props = {
   title?: string;
 };
 
-/** Small, static-friendly version of the mark for nav, footer and stamps. */
+const ease = [0.65, 0, 0.35, 1] as const;
+
+/** Compact mark for nav, footer and the confirmation stamp. */
 export default function Mark({ size = 32, draw = false, delay = 0, className, title = "Naqsh" }: Props) {
   const reduce = useReducedMotion();
   const animate = draw && !reduce;
+  const clip = useId();
   return (
-    <svg
-      viewBox="-106 -106 212 212"
-      width={size}
-      height={size}
-      className={className}
-      role="img"
-      aria-label={title}
-    >
-      {RINGS.map((ring, i) => (
-        <motion.path
-          key={ring.R}
-          d={ring.d}
-          fill="none"
-          stroke={i === RINGS.length - 1 ? "var(--gold)" : "currentColor"}
-          strokeWidth={i === 0 ? 7 : 5.5}
-          strokeLinejoin="round"
-          initial={animate ? { pathLength: 0, opacity: 0 } : false}
-          animate={animate ? { pathLength: 1, opacity: 1 } : undefined}
-          transition={{ duration: 0.9, delay: delay + (RINGS.length - i) * 0.07, ease: [0.65, 0, 0.35, 1] }}
-        />
-      ))}
-      <motion.circle
-        r={9}
-        fill="var(--gold)"
-        initial={animate ? { scale: 0 } : false}
-        animate={animate ? { scale: 1 } : undefined}
-        transition={{ duration: 0.4, delay: delay + 0.9, ease: [0.34, 1.56, 0.64, 1] }}
+    <svg viewBox="-108 -118 216 226" width={size} height={size} className={className} role="img" aria-label={title}>
+      <defs>
+        <clipPath id={clip}>
+          <path d={starPath(94)} />
+        </clipPath>
+      </defs>
+      <motion.path
+        d={STAR}
+        fill="none"
+        stroke="currentColor"
+        strokeWidth={9}
+        strokeLinejoin="round"
+        initial={animate ? { pathLength: 0 } : false}
+        animate={animate ? { pathLength: 1 } : undefined}
+        transition={{ duration: 1, delay, ease }}
       />
+      <g clipPath={`url(#${clip})`}>
+        {CONTOURS_SMALL.map((c, i) => (
+          <motion.path
+            key={c.t}
+            d={c.d}
+            fill="none"
+            stroke="currentColor"
+            strokeOpacity={i === 0 ? 0.55 : 0.85}
+            strokeWidth={8}
+            initial={animate ? { pathLength: 0 } : false}
+            animate={animate ? { pathLength: 1 } : undefined}
+            transition={{ duration: 0.8, delay: delay + 0.3 + i * 0.15, ease }}
+          />
+        ))}
+      </g>
+      <motion.g
+        initial={animate ? { y: -30, opacity: 0 } : false}
+        animate={animate ? { y: 0, opacity: 1 } : undefined}
+        transition={{ type: "spring", stiffness: 380, damping: 14, delay: delay + 0.8 }}
+      >
+        <g transform={`translate(${PIN.x} ${PIN.y + 4}) scale(1.9)`}>
+          <path d={PIN.d} fill="var(--gold)" />
+          <circle cy={-17} r={3.4} fill="var(--lapis-900)" />
+        </g>
+      </motion.g>
     </svg>
   );
 }

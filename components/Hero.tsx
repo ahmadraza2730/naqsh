@@ -10,12 +10,12 @@ import {
   useTransform,
   type MotionValue,
 } from "motion/react";
-import { RINGS } from "@/lib/mark";
+import { CONTOURS, NORTH, PIN, ROUTE, STAR, starPath } from "@/lib/mark";
 import { site } from "@/lib/site";
 
 const EASE = [0.22, 1, 0.36, 1] as const;
 
-function Ring({
+function Contour({
   d,
   i,
   mx,
@@ -28,26 +28,26 @@ function Ring({
   my: MotionValue<number>;
   reduce: boolean;
 }) {
-  // Inner rings travel further, so the star reads as a hill you look down on.
-  const depth = (i + 1) * 3.2;
+  // Higher contours travel further, so the hill seems to rise toward you.
+  const depth = (i + 1) * 3;
   const x = useTransform(mx, (v) => v * depth);
   const y = useTransform(my, (v) => v * depth);
-  const last = i === RINGS.length - 1;
   return (
     <motion.path
       d={d}
       style={{ x, y }}
       fill="none"
-      stroke={last ? "var(--gold)" : "var(--parchment)"}
-      strokeOpacity={last ? 1 : 0.28 + i * 0.12}
-      strokeWidth={i === 0 ? 0.65 : 0.5}
-      strokeLinejoin="round"
+      stroke="var(--parchment)"
+      strokeOpacity={0.22 + i * 0.13}
+      strokeWidth={0.55}
       initial={reduce ? false : { pathLength: 0, opacity: 0 }}
       animate={{ pathLength: 1, opacity: 1 }}
-      transition={{ duration: 1.6, delay: 0.25 + (RINGS.length - 1 - i) * 0.14, ease: EASE }}
+      transition={{ duration: 1.5, delay: 0.5 + i * 0.13, ease: EASE }}
     />
   );
 }
+
+const GRID = [-60, -20, 20, 60];
 
 export default function Hero() {
   const reduce = !!useReducedMotion();
@@ -61,6 +61,11 @@ export default function Hero() {
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end start"] });
   const rotate = useTransform(scrollYProgress, [0, 1], [0, reduce ? 0 : 50]);
   const scale = useTransform(scrollYProgress, [0, 1], [1, reduce ? 1 : 0.86]);
+
+  const pinX = useTransform(mx, (v) => v * 18);
+  const pinY = useTransform(my, (v) => v * 18);
+  const routeX = useTransform(mx, (v) => v * 9);
+  const routeY = useTransform(my, (v) => v * 9);
 
   useEffect(() => {
     if (reduce) return;
@@ -114,21 +119,106 @@ export default function Hero() {
       </div>
 
       <motion.div className="hero__mark" style={{ rotate, scale }} aria-hidden="true">
-        <svg viewBox="-112 -112 224 224">
-          {RINGS.map((r, i) => (
-            <Ring key={r.R} d={r.d} i={i} mx={mx} my={my} reduce={reduce} />
-          ))}
-          <motion.circle
-            r={4.2}
-            fill="var(--gold)"
-            style={{
-              x: useTransform(mx, (v) => v * 22),
-              y: useTransform(my, (v) => v * 22),
-            }}
-            initial={reduce ? false : { scale: 0 }}
-            animate={{ scale: 1 }}
-            transition={{ duration: 0.6, delay: 1.2, ease: [0.34, 1.56, 0.64, 1] }}
+        <svg viewBox="-112 -124 224 236">
+          <defs>
+            <clipPath id="hero-frame">
+              <path d={starPath(98)} />
+            </clipPath>
+            <mask id="hero-route">
+              <motion.path
+                d={ROUTE}
+                fill="none"
+                stroke="#fff"
+                strokeWidth={4}
+                initial={reduce ? false : { pathLength: 0 }}
+                animate={{ pathLength: 1 }}
+                transition={{ duration: 1.2, delay: 1.3, ease: EASE }}
+              />
+            </mask>
+          </defs>
+
+          {/* Frame: the eight-point star, with north marked on its top point. */}
+          <motion.path
+            d={STAR}
+            fill="none"
+            stroke="var(--parchment)"
+            strokeWidth={0.8}
+            strokeLinejoin="round"
+            initial={reduce ? false : { pathLength: 0, opacity: 0 }}
+            animate={{ pathLength: 1, opacity: 1 }}
+            transition={{ duration: 1.8, delay: 0.2, ease: EASE }}
           />
+          <motion.path
+            d={NORTH}
+            stroke="var(--gold)"
+            strokeWidth={1.2}
+            strokeLinecap="round"
+            initial={reduce ? false : { pathLength: 0 }}
+            animate={{ pathLength: 1 }}
+            transition={{ duration: 0.6, delay: 1.6, ease: EASE }}
+          />
+          <motion.text
+            x={0}
+            y={-118}
+            textAnchor="middle"
+            fontSize={7}
+            fill="var(--gold)"
+            style={{ fontFamily: "var(--sans)", letterSpacing: 1 }}
+            initial={reduce ? false : { opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 1.9 }}
+          >
+            N
+          </motion.text>
+
+          <g clipPath="url(#hero-frame)">
+            {/* Graticule, like the lines on a survey sheet. */}
+            {GRID.map((g) => (
+              <g key={g} stroke="var(--parchment)" strokeOpacity={0.07} strokeWidth={0.4}>
+                <line x1={g} y1={-110} x2={g} y2={110} />
+                <line x1={-110} y1={g} x2={110} y2={g} />
+              </g>
+            ))}
+            {CONTOURS.map((c, i) => (
+              <Contour key={c.t} d={c.d} i={i} mx={mx} my={my} reduce={reduce} />
+            ))}
+            <motion.g style={{ x: routeX, y: routeY }}>
+              <path
+                d={ROUTE}
+                fill="none"
+                stroke="var(--gold)"
+                strokeWidth={0.9}
+                strokeDasharray="2.5 3"
+                strokeLinecap="round"
+                mask="url(#hero-route)"
+              />
+            </motion.g>
+          </g>
+
+          {/* The pin drops onto the summit last. */}
+          <motion.g style={{ x: pinX, y: pinY }}>
+            <motion.g
+              initial={reduce ? false : { y: -40, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              transition={{ type: "spring", stiffness: 300, damping: 13, delay: 2.2 }}
+            >
+              <g transform={`translate(${PIN.x} ${PIN.y})`}>
+                <path d={PIN.d} fill="var(--gold)" />
+                <circle cy={-17} r={3.4} fill="var(--lapis-900)" />
+              </g>
+            </motion.g>
+            <motion.ellipse
+              cx={PIN.x}
+              cy={PIN.y + 0.5}
+              rx={5}
+              ry={1.4}
+              fill="var(--gold)"
+              opacity={0.35}
+              initial={reduce ? false : { scale: 0 }}
+              animate={{ scale: 1 }}
+              transition={{ delay: 2.35, duration: 0.4 }}
+            />
+          </motion.g>
         </svg>
         <motion.span
           className="hero__urdu"
