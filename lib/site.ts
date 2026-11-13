@@ -12,7 +12,7 @@ export const site = {
   description:
     "Naqsh is a graphic design studio from Islamabad. Logos, brand identities, social media, packaging and print for businesses in Pakistan and around the world.",
   city: "Islamabad, Pakistan",
-  url: "https://naqsh.vercel.app",
+  url: "https://naqsh-rosy.vercel.app",
   contact: {
     // Leave a field empty ("") to hide it on the site.
     email: "",
