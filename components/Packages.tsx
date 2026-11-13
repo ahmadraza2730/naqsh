@@ -2,19 +2,15 @@
 
 import { packages, pkr, usd } from "@/lib/site";
 import { chooseService } from "./Services";
+import { SectionHead, Rise } from "./Motion";
 
 export default function Packages() {
   return (
     <section id="packages" className="section" aria-labelledby="packages-title">
-      <div className="section__head">
-        <h2 id="packages-title" className="h2">
-          Packages
-        </h2>
-        <p className="section__intro">Bundles for the most common starting points. Cheaper than ordering each piece on its own.</p>
-      </div>
+      <SectionHead id="packages-title" title={"Packages"} intro={<>Bundles for the most common starting points. Cheaper than ordering each piece on its own.</>} />
       <div className="pkgs">
-        {packages.map((p) => (
-          <article key={p.id} className={`pkg ${p.featured ? "pkg--featured" : ""}`}>
+        {packages.map((p, i) => (
+          <Rise as="article" i={i} key={p.id} className={`pkg ${p.featured ? "pkg--featured" : ""}`}>
             {p.featured && <p className="pkg__flag">Most chosen</p>}
             <h3 className="pkg__name">{p.name}</h3>
             <p className="pkg__fit">{p.fit}</p>
@@ -37,7 +33,7 @@ export default function Packages() {
             >
               Choose {p.name}
             </button>
-          </article>
+          </Rise>
         ))}
       </div>
     </section>

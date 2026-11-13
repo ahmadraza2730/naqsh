@@ -53,11 +53,11 @@ app/
   globals.css          the whole design system (lapis + gold)
   api/brief/route.ts   validates and stores briefs
   icon.svg, opengraph-image.tsx
-components/            Nav, Hero, Work, Services, Packages, Sections, BriefForm, Mark
+components/            Nav, Hero, Work, Services, Motion (scroll reveals, marquee, progress bar), Packages, Sections, BriefForm, Mark
 lib/
   site.ts              all content
   brief.ts             form schema
-  mark.ts              geometry of the Naqsh logo
+  mark.ts, pakistan.ts geometry of the Naqsh logo
 public/naqsh-mark.svg  logo file for print / social
 public/work/           portfolio images
 supabase/schema.sql
@@ -65,4 +65,4 @@ supabase/schema.sql
 
 ## The logo
 
-A map inside an eight-point star. The khatam star from Islamic geometry is the frame, like the border of an old map, with north marked on its top point. Inside it, topographic contour lines rise to a summit where a gold pin marks the spot, and a dashed route climbs up to it. A simpler version with two contours and a larger pin is used at small sizes (nav, favicon). The geometry lives in `lib/mark.ts`; `public/naqsh-mark.svg` is the standalone file.
+A map of Pakistan. The outline comes from Natural Earth (world-atlas, 50m) and is generated into `lib/pakistan.ts`. Contour lines rise toward the Karakoram, Nanga Parbat and the Hindu Kush in the north, the Indus runs in gold from the mountains to the Arabian Sea, and a small eight-point khatam star marks Islamabad. At small sizes (nav, favicon, footer) the country is a solid silhouette with the Indus cut through it. `public/naqsh-mark.svg` is the standalone file.

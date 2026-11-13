@@ -1,8 +1,9 @@
 "use client";
 
 import { useState } from "react";
-import { AnimatePresence, motion, LayoutGroup } from "motion/react";
+import { AnimatePresence, motion, LayoutGroup, useReducedMotion } from "motion/react";
 import { serviceGroups, pkr, usd } from "@/lib/site";
+import { SectionHead } from "./Motion";
 
 export function chooseService(id: string) {
   window.dispatchEvent(new CustomEvent("naqsh:service", { detail: id }));
@@ -10,6 +11,7 @@ export function chooseService(id: string) {
 }
 
 export default function Services() {
+  const reduce = useReducedMotion();
   const [groupId, setGroupId] = useState(serviceGroups[0].id);
   const [openId, setOpenId] = useState<string | null>(serviceGroups[0].services[0].id);
   const group = serviceGroups.find((g) => g.id === groupId)!;
@@ -17,16 +19,7 @@ export default function Services() {
 
   return (
     <section id="services" className="section services" aria-labelledby="services-title">
-      <div className="section__head">
-        <h2 id="services-title" className="h2">
-          <span className="kern-w">W</span>hat we design
-        </h2>
-        <p className="section__intro">
-          {count} services across four disciplines. Prices are starting points in Pakistani rupees, with an
-          approximate dollar figure for international clients. Every project gets a fixed quote before you pay
-          anything.
-        </p>
-      </div>
+      <SectionHead id="services-title" title={<><span className="kern-w">W</span>hat we design</>} intro={<>{count} services across four disciplines. Prices are starting points in Pakistani rupees, with an approximate dollar figure for international clients. Every project gets a fixed quote before you pay anything.</>} />
 
       <LayoutGroup>
         <div className="tabs" role="tablist" aria-label="Service categories">
@@ -60,10 +53,17 @@ export default function Services() {
         >
           <p className="group-note">{group.note}</p>
           <ul className="svc-list">
-            {group.services.map((s) => {
+            {group.services.map((s, i) => {
               const open = openId === s.id;
               return (
-                <li key={s.id} className={`svc ${open ? "svc--open" : ""}`}>
+                <motion.li
+                  key={s.id}
+                  className={`svc ${open ? "svc--open" : ""}`}
+                  initial={reduce ? false : { opacity: 0, x: -16 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.6, delay: i * 0.06, ease: [0.22, 1, 0.36, 1] }}
+                >
                   <button
                     className="svc__row"
                     aria-expanded={open}
@@ -102,7 +102,7 @@ export default function Services() {
                       </motion.div>
                     )}
                   </AnimatePresence>
-                </li>
+                </motion.li>
               );
             })}
           </ul>

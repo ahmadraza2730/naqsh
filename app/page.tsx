@@ -2,6 +2,7 @@ import Nav from "@/components/Nav";
 import Hero from "@/components/Hero";
 import Services from "@/components/Services";
 import Work from "@/components/Work";
+import { Marquee, ScrollProgress } from "@/components/Motion";
 import Packages from "@/components/Packages";
 import BriefForm from "@/components/BriefForm";
 import { Faq, Footer, Payment, Process } from "@/components/Sections";
@@ -29,9 +30,11 @@ export default function Home() {
 
   return (
     <>
+      <ScrollProgress />
       <Nav />
       <main id="top">
         <Hero />
+        <Marquee />
         <Work />
         <Services />
         <Process />

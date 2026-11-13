@@ -4,6 +4,7 @@ import { useCallback, useEffect, useState } from "react";
 import Image from "next/image";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { projects } from "@/lib/site";
+import { SectionHead, Rise, Unveil } from "./Motion";
 
 // Every image across every project, in order, so the viewer can step through all work.
 const slides = projects.flatMap((p) => p.images.map((img, i) => ({ ...img, project: p, index: i })));
@@ -44,16 +45,9 @@ export default function Work() {
 
   return (
     <section id="work" className="section work" aria-labelledby="work-title">
-      <div className="section__head">
-        <h2 id="work-title" className="h2">
-          Delivered work
-        </h2>
-        <p className="section__intro">
-          Identities, logos and posters we have designed and handed over. Select any piece to see it full size.
-        </p>
-      </div>
+      <SectionHead id="work-title" title={"Delivered work"} intro={<>Identities, logos and posters we have designed and handed over. Select any piece to see it full size.</>} />
 
-      <article className="case">
+      <Rise as="article" className="case">
         <button
           className="case__stage"
           onClick={() => setOpen(slideIndex(featured.id, shown))}
@@ -97,25 +91,27 @@ export default function Work() {
             ))}
           </ul>
         </div>
-      </article>
+      </Rise>
 
       <div className="works">
         {rows.map((row, r) => (
           <ul className="works__row" key={r}>
-            {row.map((p) => {
+            {row.map((p, j) => {
               const img = p.images[0];
               return (
                 // Width proportional to aspect ratio, so every image in a row is the same height.
                 <li key={p.id} className="work-card" style={{ flex: `${img.w / img.h} 1 0` }}>
                   <button className="work-card__btn" onClick={() => setOpen(slideIndex(p.id))}>
                     <span className="work-card__img">
-                      <Image
-                        src={img.src}
-                        alt={img.alt}
-                        width={img.w}
-                        height={img.h}
-                        sizes="(max-width: 820px) 100vw, 40vw"
-                      />
+                      <Unveil i={j}>
+                        <Image
+                          src={img.src}
+                          alt={img.alt}
+                          width={img.w}
+                          height={img.h}
+                          sizes="(max-width: 820px) 100vw, 40vw"
+                        />
+                      </Unveil>
                     </span>
                     <span className="work-card__meta">
                       <span className="work-card__title">{p.title}</span>

@@ -5,6 +5,7 @@ import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import Mark from "./Mark";
 import { budgets, payByRegion, payLabels } from "@/lib/brief";
 import { packages, serviceGroups, site } from "@/lib/site";
+import { SectionHead } from "./Motion";
 
 type Region = "pakistan" | "international";
 type Status = { kind: "idle" } | { kind: "sending" } | { kind: "done"; ref: string; email: string } | { kind: "error"; message: string };
@@ -71,15 +72,7 @@ export default function BriefForm() {
 
   return (
     <section id="brief" className="section brief" aria-labelledby="brief-title">
-      <div className="section__head">
-        <h2 id="brief-title" className="h2">
-          Start a project
-        </h2>
-        <p className="section__intro">
-          Tell us what you need. We reply within 24 hours with questions, a fixed quote and a delivery date. Nothing is
-          charged until you accept the quote.
-        </p>
-      </div>
+      <SectionHead id="brief-title" title={"Start a project"} intro={<>Tell us what you need. We reply within 24 hours with questions, a fixed quote and a delivery date. Nothing is charged until you accept the quote.</>} />
 
       <AnimatePresence mode="wait">
         {status.kind === "done" ? (
@@ -126,6 +119,10 @@ export default function BriefForm() {
             className="form"
             onSubmit={onSubmit}
             noValidate
+            initial={reduce ? false : { opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "0px 0px -10% 0px" }}
+            transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
             exit={{ opacity: 0, y: -10 }}
           >
             <fieldset className="form__region">

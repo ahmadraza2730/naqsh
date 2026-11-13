@@ -1,5 +1,5 @@
 import { ImageResponse } from "next/og";
-import { CONTOURS, PIN, ROUTE, STAR } from "@/lib/mark";
+import { BOX, INDUS, ISLAMABAD, OUTLINE, starPath } from "@/lib/mark";
 import { site } from "@/lib/site";
 
 export const alt = `${site.name} — ${site.tagline}`;
@@ -10,13 +10,10 @@ export default function OG() {
   return new ImageResponse(
     (
       <div style={{ width: "100%", height: "100%", display: "flex", alignItems: "center", background: "#081626", padding: 80, gap: 72 }}>
-        <svg width="400" height="400" viewBox="-110 -110 220 220">
-          <path d={STAR} fill="none" stroke="#ede6d6" strokeWidth={2} />
-          {CONTOURS.slice(1).map((c, i) => (
-            <path key={c.t} d={c.d} fill="none" stroke="#ede6d6" strokeOpacity={0.35 + i * 0.15} strokeWidth={1.6} />
-          ))}
-          <path d={ROUTE} fill="none" stroke="#c9a45c" strokeWidth={1.8} strokeDasharray="4 5" />
-          <path d={PIN.d} transform={`translate(${PIN.x} ${PIN.y})`} fill="#c9a45c" />
+        <svg width="420" height="420" viewBox={`${BOX.x - 8} ${BOX.y - 8} ${BOX.w + 16} ${BOX.h + 16}`}>
+          <path d={OUTLINE} fill="#0f2742" stroke="#ede6d6" strokeWidth={1.4} />
+          <path d={INDUS} fill="none" stroke="#c9a45c" strokeWidth={2} />
+          <path d={starPath(6)} transform={`translate(${ISLAMABAD.x} ${ISLAMABAD.y})`} fill="#c9a45c" />
         </svg>
         <div style={{ display: "flex", flexDirection: "column", color: "#ede6d6" }}>
           <div style={{ fontSize: 110, letterSpacing: -2 }}>{site.name}</div>

@@ -1,22 +1,19 @@
 import Mark from "./Mark";
 import { faqs, payments, process, site } from "@/lib/site";
+import { SectionHead, Rise, RouteLine } from "./Motion";
 
 export function Process() {
   return (
     <section id="process" className="section" aria-labelledby="process-title">
-      <div className="section__head">
-        <h2 id="process-title" className="h2">
-          How a project runs
-        </h2>
-        <p className="section__intro">Four steps, the same for a single thumbnail or a full identity.</p>
-      </div>
+      <SectionHead id="process-title" title={"How a project runs"} intro={<>Four steps, the same for a single thumbnail or a full identity.</>} />
       <ol className="steps">
+        <RouteLine />
         {process.map((p, i) => (
-          <li key={p.title} className="step">
+          <Rise as="li" key={p.title} className="step" i={i + 1}>
             <span className="step__n">{i + 1}</span>
             <h3 className="step__title">{p.title}</h3>
             <p>{p.text}</p>
-          </li>
+          </Rise>
         ))}
       </ol>
     </section>
@@ -26,17 +23,9 @@ export function Process() {
 export function Payment() {
   return (
     <section id="payment" className="section" aria-labelledby="payment-title">
-      <div className="section__head">
-        <h2 id="payment-title" className="h2">
-          Paying us
-        </h2>
-        <p className="section__intro">
-          50% to start, 50% on delivery. Projects under Rs 5,000 are paid in full upfront. Payment details are sent
-          with your quote, never before.
-        </p>
-      </div>
+      <SectionHead id="payment-title" title={"Paying us"} intro={<>50% to start, 50% on delivery. Projects under Rs 5,000 are paid in full upfront. Payment details are sent with your quote, never before.</>} />
       <div className="pay">
-        <div className="pay__col">
+        <Rise className="pay__col">
           <h3 className="pay__title">In Pakistan</h3>
           <p className="pay__sub">Billed in PKR</p>
           <ul>
@@ -47,8 +36,8 @@ export function Payment() {
               </li>
             ))}
           </ul>
-        </div>
-        <div className="pay__col">
+        </Rise>
+        <Rise className="pay__col" i={1}>
           <h3 className="pay__title">Outside Pakistan</h3>
           <p className="pay__sub">Billed in USD</p>
           <ul>
@@ -70,7 +59,7 @@ export function Payment() {
               </li>
             ))}
           </ul>
-        </div>
+        </Rise>
       </div>
     </section>
   );
@@ -79,17 +68,15 @@ export function Payment() {
 export function Faq() {
   return (
     <section id="faq" className="section" aria-labelledby="faq-title">
-      <div className="section__head">
-        <h2 id="faq-title" className="h2">
-          Questions clients ask
-        </h2>
-      </div>
+      <SectionHead id="faq-title" title={"Questions clients ask"} />
       <div className="faq">
-        {faqs.map((f) => (
-          <details key={f.q} className="faq__item">
-            <summary>{f.q}</summary>
-            <p>{f.a}</p>
-          </details>
+        {faqs.map((f, i) => (
+          <Rise key={f.q} i={i}>
+            <details className="faq__item">
+              <summary>{f.q}</summary>
+              <p>{f.a}</p>
+            </details>
+          </Rise>
         ))}
       </div>
     </section>

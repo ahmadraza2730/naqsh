@@ -1,8 +1,7 @@
 "use client";
 
-import { useId } from "react";
 import { motion, useReducedMotion } from "motion/react";
-import { CONTOURS_SMALL, PIN, STAR, starPath } from "@/lib/mark";
+import { BOX, INDUS, ISLAMABAD, OUTLINE_SMALL, starPath } from "@/lib/mark";
 
 type Props = {
   size?: number;
@@ -13,54 +12,46 @@ type Props = {
 };
 
 const ease = [0.65, 0, 0.35, 1] as const;
+const PAD = 8;
+export const MARK_VIEWBOX = `${BOX.x - PAD} ${BOX.y - PAD} ${BOX.w + PAD * 2} ${BOX.h + PAD * 2}`;
 
-/** Compact mark for nav, footer and the confirmation stamp. */
+/** Compact mark: Pakistan as a solid shape, the Indus cut through it, Islamabad in gold. */
 export default function Mark({ size = 32, draw = false, delay = 0, className, title = "Naqsh" }: Props) {
   const reduce = useReducedMotion();
   const animate = draw && !reduce;
-  const clip = useId();
   return (
-    <svg viewBox="-108 -118 216 226" width={size} height={size} className={className} role="img" aria-label={title}>
-      <defs>
-        <clipPath id={clip}>
-          <path d={starPath(94)} />
-        </clipPath>
-      </defs>
+    <svg viewBox={MARK_VIEWBOX} width={size} height={size} className={className} role="img" aria-label={title}>
       <motion.path
-        d={STAR}
-        fill="none"
+        d={OUTLINE_SMALL}
         stroke="currentColor"
-        strokeWidth={9}
+        strokeWidth={6}
         strokeLinejoin="round"
+        initial={animate ? { pathLength: 0, fill: "rgba(237,230,214,0)" } : false}
+        animate={animate ? { pathLength: 1, fill: "rgba(237,230,214,1)" } : undefined}
+        style={animate ? undefined : { fill: "currentColor" }}
+        transition={{ pathLength: { duration: 1.1, delay, ease }, fill: { duration: 0.5, delay: delay + 0.9 } }}
+      />
+      <motion.path
+        d={INDUS}
+        fill="none"
+        stroke="var(--lapis-900)"
+        strokeWidth={7}
+        strokeLinecap="round"
         initial={animate ? { pathLength: 0 } : false}
         animate={animate ? { pathLength: 1 } : undefined}
-        transition={{ duration: 1, delay, ease }}
+        transition={{ duration: 0.8, delay: delay + 1.1, ease }}
       />
-      <g clipPath={`url(#${clip})`}>
-        {CONTOURS_SMALL.map((c, i) => (
-          <motion.path
-            key={c.t}
-            d={c.d}
-            fill="none"
-            stroke="currentColor"
-            strokeOpacity={i === 0 ? 0.55 : 0.85}
-            strokeWidth={8}
-            initial={animate ? { pathLength: 0 } : false}
-            animate={animate ? { pathLength: 1 } : undefined}
-            transition={{ duration: 0.8, delay: delay + 0.3 + i * 0.15, ease }}
-          />
-        ))}
+      <g transform={`translate(${ISLAMABAD.x} ${ISLAMABAD.y})`}>
+      <motion.path
+        d={starPath(19)}
+        fill="var(--gold)"
+        stroke="var(--lapis-900)"
+        strokeWidth={4}
+        initial={animate ? { scale: 0, rotate: -90 } : false}
+        animate={animate ? { scale: 1, rotate: 0 } : undefined}
+        transition={{ type: "spring", stiffness: 300, damping: 14, delay: delay + 1.6 }}
+      />
       </g>
-      <motion.g
-        initial={animate ? { y: -30, opacity: 0 } : false}
-        animate={animate ? { y: 0, opacity: 1 } : undefined}
-        transition={{ type: "spring", stiffness: 380, damping: 14, delay: delay + 0.8 }}
-      >
-        <g transform={`translate(${PIN.x} ${PIN.y + 4}) scale(1.9)`}>
-          <path d={PIN.d} fill="var(--gold)" />
-          <circle cy={-17} r={3.4} fill="var(--lapis-900)" />
-        </g>
-      </motion.g>
     </svg>
   );
 }

@@ -334,10 +334,29 @@ main {
   aspect-ratio: 1;
   justify-self: center;
 }
+.hero__tilt {
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+}
+.hero__mark {
+  perspective: 900px;
+}
 .hero__mark svg {
   width: 100%;
   height: 100%;
   overflow: visible;
+}
+.hero__label {
+  font-family: var(--sans);
+  font-size: 5.5px;
+  font-weight: 600;
+  fill: var(--gold-hi);
+  letter-spacing: 0.04em;
+  paint-order: stroke;
+  stroke: var(--lapis-900);
+  stroke-width: 2.4px;
+  stroke-linejoin: round;
 }
 .hero__urdu {
   position: absolute;
@@ -576,13 +595,13 @@ main {
   gap: 32px;
   position: relative;
 }
-.steps::before {
-  content: "";
+.steps__line {
   position: absolute;
   top: 22px;
   left: 22px;
   right: 10%;
   border-top: 1.5px dashed rgba(201, 164, 92, 0.45);
+  transform-origin: left;
 }
 .step {
   position: relative;
@@ -1043,7 +1062,7 @@ legend {
     grid-template-columns: repeat(2, minmax(0, 1fr));
     row-gap: 48px;
   }
-  .steps::before {
+  .steps__line {
     display: none;
   }
   .pkgs {
@@ -1373,5 +1392,169 @@ legend {
   .thumb {
     width: 56px;
     height: 56px;
+  }
+}
+
+/* ───────── Motion helpers ───────── */
+
+.progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--gold), var(--gold-hi));
+  transform-origin: left;
+  z-index: 60;
+}
+
+.marquee {
+  position: relative;
+  overflow: hidden;
+  border-block: 1px solid var(--line);
+  padding: 18px 0;
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+}
+.marquee__track {
+  display: flex;
+  width: max-content;
+}
+.marquee:hover .marquee__track {
+  animation-play-state: paused;
+}
+.marquee__row {
+  display: flex;
+  flex: none;
+}
+.marquee__item {
+  display: inline-flex;
+  align-items: center;
+  gap: 28px;
+  padding-right: 28px;
+  font: italic 400 clamp(20px, 2.2vw, 28px) / 1.2 var(--serif);
+  color: var(--parchment);
+  white-space: nowrap;
+}
+.marquee__item:nth-child(odd) {
+  color: var(--muted);
+}
+
+.unveil,
+.unveil__inner {
+  display: block;
+  overflow: hidden;
+}
+.unveil__inner {
+  overflow: visible;
+}
+
+/* Gold sweep on button hover. */
+.btn {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+}
+.btn--ghost::before,
+.btn--line::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: var(--gold);
+  transform: translateY(101%);
+  transition: transform 0.45s var(--ease);
+}
+.btn--ghost:hover,
+.btn--line:hover {
+  color: var(--lapis-950);
+  border-color: var(--gold);
+  background: none;
+}
+.btn--ghost:hover::before,
+.btn--line:hover::before {
+  transform: translateY(0);
+}
+
+/* ───────── Responsive refinements ───────── */
+
+@media (max-width: 960px) {
+  .hero {
+    grid-template-columns: 1fr;
+    padding-top: 104px;
+    padding-bottom: 120px;
+    gap: 8px;
+    min-height: auto;
+  }
+  .hero__mark {
+    order: -1;
+    width: min(70vw, 420px);
+    margin-bottom: 56px;
+  }
+  .hero::before {
+    inset: -10% -30% 30% -30%;
+  }
+  .hero__lede {
+    max-width: 56ch;
+  }
+  .hero__title {
+    font-size: clamp(42px, 9vw, 76px);
+  }
+  .hero__urdu {
+    bottom: -14%;
+  }
+  .case {
+    grid-template-columns: 1fr;
+  }
+  .section__head {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 420px) {
+  :root {
+    --pad: 18px;
+  }
+  body {
+    font-size: 16px;
+  }
+  .hero__title {
+    font-size: clamp(38px, 11.5vw, 46px);
+  }
+  .hero__actions .btn {
+    width: 100%;
+  }
+  .h2 {
+    font-size: clamp(34px, 10vw, 40px);
+  }
+  .svc__name {
+    font-size: 21px;
+  }
+  .pkg {
+    padding: 32px 20px 24px;
+  }
+  .pkg__price {
+    font-size: 38px;
+  }
+  .form {
+    padding: 20px;
+  }
+  .footer__links {
+    gap: 16px;
+  }
+  .viewer {
+    padding: 12px;
+  }
+  .viewer__nav {
+    width: 100%;
+  }
+  .viewer__nav .btn {
+    flex: 1;
+  }
+}
+
+@media (min-width: 1600px) {
+  :root {
+    --max: 1400px;
   }
 }
