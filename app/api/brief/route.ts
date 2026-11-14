@@ -27,7 +27,12 @@ export async function POST(req: Request) {
   if (website) return NextResponse.json({ ok: true, ref: "NQ-000000" });
 
   const url = process.env.SUPABASE_URL || process.env.NEXT_PUBLIC_SUPABASE_URL;
-  const key = process.env.SUPABASE_SERVICE_ROLE_KEY;
+  // The public (anon / publishable) key is enough: it can only call submit_brief().
+  const key =
+    process.env.SUPABASE_ANON_KEY ||
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY ||
+    process.env.SUPABASE_PUBLISHABLE_KEY ||
+    process.env.SUPABASE_SERVICE_ROLE_KEY;
   if (!url || !key) {
     return NextResponse.json(
       { error: "The brief form is not connected to the database yet. Please contact the studio directly." },
@@ -36,29 +41,25 @@ export async function POST(req: Request) {
   }
 
   const supabase = createClient(url, key, { auth: { persistSession: false } });
-  const { data, error } = await supabase
-    .from("briefs")
-    .insert({
-      name: brief.name,
-      email: brief.email,
-      whatsapp: brief.whatsapp || null,
-      business: brief.business || null,
-      region: brief.region,
-      service: brief.service,
-      budget: brief.budget || null,
-      deadline: brief.deadline || null,
-      details: brief.details,
-      references_text: brief.references || null,
-      payment_method: brief.payment,
-      user_agent: req.headers.get("user-agent")?.slice(0, 300) ?? null,
-    })
-    .select("ref")
-    .single();
+  const { data, error } = await supabase.rpc("submit_brief", {
+    p_name: brief.name,
+    p_email: brief.email,
+    p_whatsapp: brief.whatsapp || "",
+    p_business: brief.business || "",
+    p_region: brief.region,
+    p_service: brief.service,
+    p_budget: brief.budget || "",
+    p_deadline: brief.deadline || null,
+    p_details: brief.details,
+    p_references: brief.references || "",
+    p_payment: brief.payment,
+    p_user_agent: req.headers.get("user-agent") ?? "",
+  });
 
-  if (error) {
-    console.error("Supabase insert failed", error);
+  if (error || !data) {
+    console.error("Supabase submit_brief failed", error);
     return NextResponse.json({ error: "Your brief could not be saved. Try again in a minute." }, { status: 500 });
   }
 
-  return NextResponse.json({ ok: true, ref: data.ref });
+  return NextResponse.json({ ok: true, ref: data as string });
 }

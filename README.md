@@ -28,14 +28,12 @@ Push to `main` and Vercel redeploys automatically.
 ## Connect the brief form to Supabase
 
 1. Create a Supabase project (or reuse one).
-2. Open **SQL Editor**, paste `supabase/schema.sql`, run it. This creates the `briefs` table with row-level security on.
-3. In **Project settings → API**, copy the Project URL and the `service_role` key.
-4. In Vercel → Project → **Settings → Environment Variables**, add:
-   - `SUPABASE_URL`
-   - `SUPABASE_SERVICE_ROLE_KEY`
-5. Redeploy. New briefs appear in **Table editor → briefs**, each with a reference like `NQ-1001`. Track them with the `status` column (`new → quoted → deposit_paid → in_progress → delivered → paid`).
+2. Open **SQL Editor**, paste `supabase/schema.sql`, run it. This creates the `briefs` table (locked with row-level security) and a `submit_brief()` function the site calls.
+3. In **Project settings → API**, copy the Project URL and the public **anon** (or publishable) key.
+4. In Vercel → Project → **Settings → Environment Variables**, add `SUPABASE_URL` and `SUPABASE_ANON_KEY`, then redeploy.
+5. New briefs appear in **Table editor → briefs**, each with a reference like `NQ-1001`. Track them with the `status` column (`new → quoted → deposit_paid → in_progress → delivered → paid`).
 
-The service-role key is only used on the server (`app/api/brief/route.ts`); it never reaches the browser.
+The public key can only add a brief through `submit_brief()`; it cannot read, change or delete anything.
 
 ## Payments
 
