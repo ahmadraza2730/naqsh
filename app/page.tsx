@@ -2,6 +2,7 @@ import Nav from "@/components/Nav";
 import Hero from "@/components/Hero";
 import Services from "@/components/Services";
 import Work from "@/components/Work";
+import WhatsAppButton from "@/components/WhatsAppButton";
 import { Marquee, ScrollProgress } from "@/components/Motion";
 import Packages from "@/components/Packages";
 import BriefForm from "@/components/BriefForm";
@@ -44,6 +45,7 @@ export default function Home() {
         <BriefForm />
       </main>
       <Footer />
+      <WhatsAppButton />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
     </>
   );

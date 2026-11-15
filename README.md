@@ -35,6 +35,17 @@ Push to `main` and Vercel redeploys automatically.
 
 The public key can only add a brief through `submit_brief()`; it cannot read, change or delete anything.
 
+## Briefs on WhatsApp
+
+Two things send briefs to WhatsApp (number in `site.contact.whatsapp`):
+
+1. **One tap for the client.** After sending the form, the client sees **Send brief on WhatsApp**, which opens WhatsApp with their brief already written and the reference number included. There is also a floating **Chat on WhatsApp** button on the page.
+2. **Automatic alert to you.** Every new brief is pushed to your WhatsApp through CallMeBot, once you add a key:
+   - Save the CallMeBot bot number from callmebot.com (WhatsApp section) in your phone contacts.
+   - Send it: `I allow callmebot to send me messages`
+   - It replies with your API key. In Vercel → Settings → Environment Variables, add `CALLMEBOT_APIKEY` (and `WHATSAPP_NOTIFY_PHONE` if it is a different number), then redeploy.
+   - Until the key is set, the site skips the alert and everything else works normally.
+
 ## Payments
 
 No card processor yet (Stripe does not onboard Pakistan-registered businesses). The site sends clients through:

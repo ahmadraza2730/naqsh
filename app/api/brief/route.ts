@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { createClient } from "@supabase/supabase-js";
 import { briefSchema } from "@/lib/brief";
+import { notifyWhatsApp } from "@/lib/notify";
 
 export const runtime = "nodejs";
 
@@ -60,6 +61,8 @@ export async function POST(req: Request) {
     console.error("Supabase submit_brief failed", error);
     return NextResponse.json({ error: "Your brief could not be saved. Try again in a minute." }, { status: 500 });
   }
+
+  await notifyWhatsApp(data as string, brief);
 
   return NextResponse.json({ ok: true, ref: data as string });
 }

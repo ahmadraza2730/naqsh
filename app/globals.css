@@ -1558,3 +1558,45 @@ legend {
     --max: 1400px;
   }
 }
+
+/* ───────── WhatsApp ───────── */
+
+.wa-fab {
+  position: fixed;
+  right: clamp(16px, 3vw, 32px);
+  bottom: clamp(16px, 3vw, 32px);
+  z-index: 70;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  height: 52px;
+  padding: 0 20px 0 16px;
+  border-radius: 999px;
+  background: var(--gold);
+  color: var(--lapis-950);
+  font: 600 15px/1 var(--sans);
+  text-decoration: none;
+  box-shadow: 0 10px 30px rgba(5, 14, 25, 0.5);
+  transition: background 0.3s var(--ease);
+}
+.wa-fab:hover {
+  background: var(--gold-hi);
+}
+.stamp__wa {
+  margin-right: 10px;
+  margin-bottom: 10px;
+}
+@media (max-width: 560px) {
+  .wa-fab {
+    width: 52px;
+    padding: 0;
+    justify-content: center;
+  }
+  .wa-fab span {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+  }
+}

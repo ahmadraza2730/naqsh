@@ -16,7 +16,7 @@ export const site = {
   contact: {
     // Leave a field empty ("") to hide it on the site.
     email: "",
-    whatsapp: "", // international format, digits only, e.g. "923001234567"
+    whatsapp: "923477309441", // international format, digits only
     instagram: "",
     behance: "",
     fiverr: "",

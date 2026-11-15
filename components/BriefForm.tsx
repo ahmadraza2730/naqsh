@@ -4,11 +4,38 @@ import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import Mark from "./Mark";
 import { budgets, payByRegion, payLabels } from "@/lib/brief";
-import { packages, serviceGroups, site } from "@/lib/site";
+import { allServices, packages, serviceGroups, site } from "@/lib/site";
+
+const serviceLabel = (id: string) =>
+  id.startsWith("package:")
+    ? `${packages.find((p) => `package:${p.id}` === id)?.name ?? "Package"} package`
+    : id === "other"
+      ? "Something else"
+      : (allServices.find((s) => s.id === id)?.name ?? id);
+
+/** WhatsApp link with the brief pre-written, so the client can send it in one tap. */
+function whatsappLink(ref: string, d: Record<string, FormDataEntryValue>) {
+  const lines = [
+    `Assalam o Alaikum ${site.name}, I just sent brief ${ref}.`,
+    ``,
+    `Name: ${d.name}`,
+    d.business ? `Business: ${d.business}` : "",
+    `Service: ${serviceLabel(String(d.service))}`,
+    d.budget ? `Budget: ${d.budget}` : "",
+    d.deadline ? `Needed by: ${d.deadline}` : "",
+    ``,
+    String(d.details ?? "").slice(0, 700),
+  ].filter((l, i, a) => l !== "" || (a[i - 1] ?? "") !== "");
+  return `https://wa.me/${site.contact.whatsapp}?text=${encodeURIComponent(lines.join("\n"))}`;
+}
 import { SectionHead } from "./Motion";
 
 type Region = "pakistan" | "international";
-type Status = { kind: "idle" } | { kind: "sending" } | { kind: "done"; ref: string; email: string } | { kind: "error"; message: string };
+type Status =
+  | { kind: "idle" }
+  | { kind: "sending" }
+  | { kind: "done"; ref: string; email: string; wa: string }
+  | { kind: "error"; message: string };
 
 export default function BriefForm() {
   const reduce = useReducedMotion();
@@ -42,7 +69,7 @@ export default function BriefForm() {
       });
       const json = await res.json().catch(() => ({}));
       if (res.ok && json.ok) {
-        setStatus({ kind: "done", ref: json.ref, email: String(data.email) });
+        setStatus({ kind: "done", ref: json.ref, email: String(data.email), wa: whatsappLink(json.ref, data) });
         return;
       }
       if (json.fields) {
@@ -98,9 +125,14 @@ export default function BriefForm() {
             >
               <h3 className="stamp__title">Brief received</h3>
               <p>
-                Your reference is <strong>{status.ref}</strong>. We will reply to {status.email} within 24 hours
-                with a quote and payment details.
+                Your reference is <strong>{status.ref}</strong>. We will reply within 24 hours with a quote and payment
+                details. For a faster reply, send the brief to us on WhatsApp too.
               </p>
+              {site.contact.whatsapp && (
+                <a className="btn btn--gold stamp__wa" href={status.wa} target="_blank" rel="noreferrer">
+                  Send brief on WhatsApp
+                </a>
+              )}
               <button
                 className="btn btn--line"
                 onClick={() => {
